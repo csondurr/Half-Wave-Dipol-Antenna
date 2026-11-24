@@ -79,7 +79,7 @@ At 900 MHz,
 \lambda_0 \approx 333.1\ \text{mm}, \qquad \frac{\lambda_0}{2} \approx 166.6\ \text{mm}, \qquad \frac{\lambda_0}{4} \approx 83.3\ \text{mm}
 ```
 
-The 83.3 mm sleeve length is close to a free-space quarter wavelength at 900 MHz. The sleeve's electrical length also depends on its geometry, the coax, end effects, and nearby materials, so this is a nominal starting dimension, then evaluated in the complete model.
+The 83.3 mm sleeve length is the free-space quarter-wavelength starting value at 900 MHz. Its electrical behavior also depends on the sleeve geometry, coax, end effects, and nearby materials; evaluate it as part of the complete antenna model.
 
 Each physical dipole arm is 69.0 mm long, with a 2.0 mm feed gap, giving 140.0 mm tip-to-tip. This is shorter than the ideal thin-wire half-wavelength. Conductor diameter, feed structure, and end effects shift resonance; therefore, $\lambda_0/2$ is a first estimate, not the tube cut length.
 
@@ -91,7 +91,7 @@ For an ideal, thin, center-fed dipole close to half-wave resonance, the sinusoid
 I(z) \approx I_m \sin\left[k_0\left(\frac{L}{2}-|z|\right)\right], \qquad |z| \leq \frac{L}{2}, \qquad L \approx \frac{\lambda_0}{2}
 ```
 
-Here $L$ is the total dipole length, $z=0$ is the feed point, and $I_m$ is the peak feed current for the half-wave approximation. Current is greatest at the feed and falls toward zero at the open ends. This is an ideal thin-wire distribution; it is not the computed current distribution of the thick-tube CST model.
+Here $L$ is the total dipole length, $z=0$ is the feed point, and $I_m$ is the current amplitude. At exact half-wave length, this idealized distribution has current maximum $I_m$ at the feed and falls to zero at the open ends. It is not the computed current distribution of the thick-tube CST model.
 
 For an ideal thin dipole with sinusoidal current, the normalized far-field angular factor is
 
@@ -99,7 +99,7 @@ For an ideal thin dipole with sinusoidal current, the normalized far-field angul
 F(\theta) = \frac{\cos\left(\frac{k_0L}{2}\cos\theta\right) - \cos\left(\frac{k_0L}{2}\right)}{\sin\theta}
 ```
 
-The subtraction in the numerator is intentional. When $L=\lambda_0/2$, so that $k_0L/2=\pi/2$, the expression becomes
+When $L=\lambda_0/2$, $k_0L/2=\pi/2$ and the second cosine term is zero, giving
 
 ```math
 F(\theta) = \frac{\cos\left(\frac{\pi}{2}\cos\theta\right)}{\sin\theta}
