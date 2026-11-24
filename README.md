@@ -25,7 +25,7 @@ A linearly polarized, center-fed half-wave dipole designed around 900 MHz. The e
 | Antenna type | Center-fed, linear half-wave dipole |
 | Design center | 900 MHz |
 | Intended evaluation band | 850–950 MHz |
-| Simulated −10 dB return-loss interval | 817.2–1035.2 MHz |
+| Sampled frequency interval with S11 ≤ −10 dB | 817.2–1035.2 MHz |
 | Radiator material | Annealed copper, finite conductivity |
 | Radiator geometry | Two tubes, each 20 mm OD × 1 mm wall × 69.0 mm long |
 | Feed gap | 2.0 mm |
@@ -71,7 +71,7 @@ The free-space wavelength and wavenumber are
 \lambda_0 = \frac{c}{f}, \qquad k_0 = \frac{2\pi}{\lambda_0}
 ```
 
-where \(c \approx 299\,792\,458\ \text{m/s}\) is the speed of light and \(f\) is frequency.
+where $c \approx 299\,792\,458\ \text{m/s}$ is the speed of light and $f$ is frequency.
 
 At 900 MHz,
 
@@ -81,35 +81,35 @@ At 900 MHz,
 
 The 83.3 mm sleeve length is close to a free-space quarter wavelength at 900 MHz. The sleeve's electrical length also depends on its geometry, the coax, end effects, and nearby materials, so this is a nominal starting dimension, then evaluated in the complete model.
 
-Each physical dipole arm is 69.0 mm long, with a 2.0 mm feed gap, giving 140.0 mm tip-to-tip. This is shorter than the ideal thin-wire half-wavelength. Conductor diameter, feed structure, and end effects shift resonance; therefore, \(\lambda_0/2\) is a first estimate, not the tube cut length.
+Each physical dipole arm is 69.0 mm long, with a 2.0 mm feed gap, giving 140.0 mm tip-to-tip. This is shorter than the ideal thin-wire half-wavelength. Conductor diameter, feed structure, and end effects shift resonance; therefore, $\lambda_0/2$ is a first estimate, not the tube cut length.
 
 ### Current distribution and radiation pattern
 
 For an ideal, thin, center-fed dipole close to half-wave resonance, the sinusoidal current approximation is
 
 ```math
-I(z) \approx I_m \sin\!\left[k_0\left(\frac{L}{2}-|z|\right)\right], \qquad |z| \leq \frac{L}{2}, \qquad L \approx \frac{\lambda_0}{2}
+I(z) \approx I_m \sin\left[k_0\left(\frac{L}{2}-|z|\right)\right], \qquad |z| \leq \frac{L}{2}, \qquad L \approx \frac{\lambda_0}{2}
 ```
 
-Here \(L\) is the total dipole length, \(z=0\) is the feed point, and \(I_m\) is the peak feed current for the half-wave approximation. Current is greatest at the feed and falls toward zero at the open ends. This is an ideal thin-wire distribution; it is not the computed current distribution of the thick-tube CST model.
+Here $L$ is the total dipole length, $z=0$ is the feed point, and $I_m$ is the peak feed current for the half-wave approximation. Current is greatest at the feed and falls toward zero at the open ends. This is an ideal thin-wire distribution; it is not the computed current distribution of the thick-tube CST model.
 
 For an ideal thin dipole with sinusoidal current, the normalized far-field angular factor is
 
 ```math
-F(\theta) = \frac{\cos\!\left(\frac{k_0L}{2}\cos\theta\right) - \cos\!\left(\frac{k_0L}{2}\right)}{\sin\theta}
+F(\theta) = \frac{\cos\left(\frac{k_0L}{2}\cos\theta\right) - \cos\left(\frac{k_0L}{2}\right)}{\sin\theta}
 ```
 
-The subtraction in the numerator is intentional. When \(L=\lambda_0/2\), so that \(k_0L/2=\pi/2\), the expression becomes
+The subtraction in the numerator is intentional. When $L=\lambda_0/2$, so that $k_0L/2=\pi/2$, the expression becomes
 
 ```math
-F(\theta) = \frac{\cos\!\left(\frac{\pi}{2}\cos\theta\right)}{\sin\theta}
+F(\theta) = \frac{\cos\left(\frac{\pi}{2}\cos\theta\right)}{\sin\theta}
 ```
 
-The angle \(\theta\) is measured from the dipole axis. The ideal pattern has maximum radiation broadside to the wire and nulls along its axis. The electric field is polarized parallel to the arms. These are ideal thin-wire, free-space expressions; the thick tubes, coax, sleeve, and nearby environment are represented more appropriately by the full-wave model.
+The angle $\theta$ is measured from the dipole axis. The ideal pattern has maximum radiation broadside to the wire and nulls along its axis. The electric field is polarized parallel to the arms. These are ideal thin-wire, free-space expressions; the thick tubes, coax, sleeve, and nearby environment are represented more appropriately by the full-wave model.
 
 ### Input match and return loss
 
-For reference impedance \(Z_0\), the complex reflection coefficient is
+For reference impedance $Z_0$, the complex reflection coefficient is
 
 ```math
 \Gamma = \frac{Z_{\mathrm{in}}-Z_0}{Z_{\mathrm{in}}+Z_0}
@@ -127,7 +127,7 @@ The voltage standing-wave ratio is
 \mathrm{VSWR} = \frac{1+|\Gamma|}{1-|\Gamma|}
 ```
 
-An S11 threshold of −10 dB means \(|\Gamma| \approx 0.316\), \(\mathrm{RL}=10\ \text{dB}\), and \(\mathrm{VSWR} \approx 1.92\). At 900 MHz, the simulated input impedance is \(48.63+j18.39\ \Omega\); the positive imaginary part is inductive reactance, so the input is not purely resistive at that frequency.
+An S11 threshold of −10 dB means $|\Gamma| \approx 0.316$, $\mathrm{RL}=10\ \text{dB}$, and $\mathrm{VSWR} \approx 1.92$. At 900 MHz, the simulated input impedance is $48.63+j18.39\ \Omega$; the positive imaginary part is inductive reactance, so the input is not purely resistive at that frequency.
 
 As a small-change trend, resonant frequency varies approximately inversely with effective electrical length:
 
@@ -145,8 +145,8 @@ Shortening both arms equally generally raises resonance; lengthening them equall
 | Feed gap | 2.0 mm | Maintain a centered gap and prevent the arms from touching |
 | Coaxial feed | 50 Ω RG-58 | Confirm the purchased cable's dimensions and dielectric data against the model |
 | Sleeve balun | Copper tube, 8 mm OD × 1 mm wall, 83.3 mm active length | 6 mm ID nominally; one end bonded to braid, opposite end open |
-| Center conductor insulation | PE, nominal \(\epsilon_r=2.25\), \(\tan\delta=0.0004\) | Simulation assumptions; use the cable manufacturer's data when available |
-| Outer cable jacket | PVC, nominal \(\epsilon_r=3.2\), \(\tan\delta=0.01\) | Simulation assumptions; use the cable manufacturer's data when available |
+| Center conductor insulation | PE, nominal $\epsilon_r=2.25$, $\tan\delta=0.0004$ | Simulation assumptions; use the cable manufacturer's data when available |
+| Outer cable jacket | PVC, nominal $\epsilon_r=3.2$, $\tan\delta=0.01$ | Simulation assumptions; use the cable manufacturer's data when available |
 
 The simulation uses annealed copper with finite conductivity for the metal. No perfect electric conductor boundary/material was assigned to the antenna conductors.
 
@@ -163,7 +163,7 @@ The CST model covers 700–1100 MHz with 1001 frequency samples, approximately 1
 | S11 at 850 MHz | −12.48 dB |
 | S11 at 900 MHz | −14.71 dB |
 | S11 at 950 MHz | −13.21 dB |
-| Input impedance at 900 MHz | \(48.63 + j18.39\ \Omega\) |
+| Input impedance at 900 MHz | $48.63 + j18.39\ \Omega$ |
 | Radiation efficiency at 900 MHz | 98.15% |
 | Total efficiency at 900 MHz | 94.83% |
 
