@@ -133,13 +133,13 @@ $$
 {Z_{\mathrm{in}}+Z_0},
 $$
 
-and return loss expressed as S11 in decibels is
+and the S11 magnitude in decibels is
 
 $$
 S_{11,\mathrm{dB}} = 20\log_{10}|\Gamma|.
 $$
 
-The voltage standing-wave ratio is
+Positive return loss is \(\mathrm{RL}=-20\log_{10}|\Gamma|\); the voltage standing-wave ratio is
 
 $$
 \mathrm{VSWR} =
