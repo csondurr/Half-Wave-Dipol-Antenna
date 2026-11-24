@@ -1,6 +1,6 @@
 # Half-Wave Dipole Antenna
 
-A center-fed, horizontally polarized half-wave dipole designed around 900 MHz. The electromagnetic model includes two finite-conductivity copper tube arms, a 50 Ω RG-58 feed line, and a quarter-wave copper sleeve balun.
+A linearly polarized, center-fed half-wave dipole designed around 900 MHz. The electromagnetic model includes two finite-conductivity copper tube arms, a 50 Ω RG-58 feed line, and a quarter-wave copper sleeve balun.
 
 > **Model status:** The values and plots below are CST full-wave simulation results, not physical prototype measurements. The coax braid is represented as a continuous conductive shell, and the dielectric properties are nominal assumptions. Confirm the cable datasheet and verify the assembled antenna with a calibrated VNA before relying on its performance.
 
@@ -61,104 +61,81 @@ For the model, the RG-58 conductors and dielectrics run from the feed region to 
 
 ## Design theory and equations
 
-GitHub renders LaTeX in Markdown. Equations are set on their own lines with $$ delimiters for legibility.
+GitHub supports LaTeX in fenced math blocks. Each display equation below is kept as one mathematical expression so Markdown cannot reinterpret a leading minus sign as a list marker.
 
 ### Wavelength and first-cut dimensions
 
 The free-space wavelength and wavenumber are
 
-$$
-\lambda_0 = \frac{c}{f},
-\qquad
-k_0 = \frac{2\pi}{\lambda_0},
-$$
+```math
+\lambda_0 = \frac{c}{f}, \qquad k_0 = \frac{2\pi}{\lambda_0}
+```
 
 where \(c \approx 299\,792\,458\ \text{m/s}\) is the speed of light and \(f\) is frequency.
 
 At 900 MHz,
 
-$$
-\lambda_0 \approx 333.1\ \text{mm},
-\qquad
-\frac{\lambda_0}{2} \approx 166.6\ \text{mm},
-\qquad
-\frac{\lambda_0}{4} \approx 83.3\ \text{mm}.
-$$
+```math
+\lambda_0 \approx 333.1\ \text{mm}, \qquad \frac{\lambda_0}{2} \approx 166.6\ \text{mm}, \qquad \frac{\lambda_0}{4} \approx 83.3\ \text{mm}
+```
 
-The 83.3 mm sleeve is close to a free-space quarter wavelength at 900 MHz. Its actual electrical length depends on the coax, sleeve diameter, end effects, and surrounding materials, so the value is an initial design and simulation-tuned dimension.
+The 83.3 mm sleeve length is close to a free-space quarter wavelength at 900 MHz. The sleeve's electrical length also depends on its geometry, the coax, end effects, and nearby materials, so this is a nominal starting dimension, then evaluated in the complete model.
 
-The physical dipole has 69.0 mm of metal on each side and a 2.0 mm feed gap, giving 140.0 mm from tip to tip. This is shorter than the thin-wire value \(\lambda_0/2\): finite tube diameter, feed structure, and end effects shift resonance. Therefore the thin-wire formula is a starting reference, not a cut-length prescription.
+Each physical dipole arm is 69.0 mm long, with a 2.0 mm feed gap, giving 140.0 mm tip-to-tip. This is shorter than the ideal thin-wire half-wavelength. Conductor diameter, feed structure, and end effects shift resonance; therefore, \(\lambda_0/2\) is a first estimate, not the tube cut length.
 
 ### Current distribution and radiation pattern
 
-For an ideal thin, center-fed dipole of total length \(L\), a useful sinusoidal current approximation is
+For an ideal, thin, center-fed dipole close to half-wave resonance, the sinusoidal current approximation is
 
-$$
-I(z) \approx I_0
-\sin\!\left[k_0\left(\frac{L}{2}-|z|\right)\right],
-\qquad
-|z| \leq \frac{L}{2}.
-$$
+```math
+I(z) \approx I_m \sin\!\left[k_0\left(\frac{L}{2}-|z|\right)\right], \qquad |z| \leq \frac{L}{2}, \qquad L \approx \frac{\lambda_0}{2}
+```
 
-The current is largest near the feed and approaches zero at the open ends. For an ideal thin dipole, the far-field angular factor is
+Here \(L\) is the total dipole length, \(z=0\) is the feed point, and \(I_m\) is the peak feed current for the half-wave approximation. Current is greatest at the feed and falls toward zero at the open ends. This is an ideal thin-wire distribution; it is not the computed current distribution of the thick-tube CST model.
 
-$$
-F(\theta) =
-\frac{
-\cos\!\left(\frac{k_0L}{2}\cos\theta\right)
--
-\cos\!\left(\frac{k_0L}{2}\right)
-}{
-\sin\theta
-}.
-$$
+For an ideal thin dipole with sinusoidal current, the normalized far-field angular factor is
 
-For \(L \approx \lambda_0/2\), this reduces to
+```math
+F(\theta) = \frac{\cos\!\left(\frac{k_0L}{2}\cos\theta\right) - \cos\!\left(\frac{k_0L}{2}\right)}{\sin\theta}
+```
 
-$$
-F(\theta) \approx
-\frac{\cos\!\left(\frac{\pi}{2}\cos\theta\right)}
-{\sin\theta}.
-$$
+The subtraction in the numerator is intentional. When \(L=\lambda_0/2\), so that \(k_0L/2=\pi/2\), the expression becomes
 
-Here \(\theta\) is measured from the dipole axis. The ideal pattern is doughnut-shaped: maximum radiation is broadside to the wire, with nulls along its axis. The electric field is polarized parallel to the dipole. These equations describe an ideal thin dipole in free space; the thick tubes, coax, sleeve, and nearby environment require the full-wave model for more realistic predictions.
+```math
+F(\theta) = \frac{\cos\!\left(\frac{\pi}{2}\cos\theta\right)}{\sin\theta}
+```
+
+The angle \(\theta\) is measured from the dipole axis. The ideal pattern has maximum radiation broadside to the wire and nulls along its axis. The electric field is polarized parallel to the arms. These are ideal thin-wire, free-space expressions; the thick tubes, coax, sleeve, and nearby environment are represented more appropriately by the full-wave model.
 
 ### Input match and return loss
 
-The reflection coefficient at a reference impedance \(Z_0\) is
+For reference impedance \(Z_0\), the complex reflection coefficient is
 
-$$
-\Gamma =
-\frac{Z_{\mathrm{in}}-Z_0}
-{Z_{\mathrm{in}}+Z_0},
-$$
+```math
+\Gamma = \frac{Z_{\mathrm{in}}-Z_0}{Z_{\mathrm{in}}+Z_0}
+```
 
-and the S11 magnitude in decibels is
+The S11 magnitude in decibels and the positive return loss are
 
-$$
-S_{11,\mathrm{dB}} = 20\log_{10}|\Gamma|.
-$$
+```math
+S_{11,\mathrm{dB}} = 20\log_{10}|\Gamma|, \qquad \mathrm{RL}_{\mathrm{dB}} = -20\log_{10}|\Gamma| = -S_{11,\mathrm{dB}}
+```
 
-Positive return loss is \(\mathrm{RL}=-20\log_{10}|\Gamma|\); the voltage standing-wave ratio is
+The voltage standing-wave ratio is
 
-$$
-\mathrm{VSWR} =
-\frac{1+|\Gamma|}{1-|\Gamma|}.
-$$
+```math
+\mathrm{VSWR} = \frac{1+|\Gamma|}{1-|\Gamma|}
+```
 
-A −10 dB S11 threshold corresponds to \(|\Gamma| \approx 0.316\) and \(\mathrm{VSWR} \approx 1.92\). The CST result at 900 MHz is \(Z_{\mathrm{in}} = 48.63 + j18.39\ \Omega\), so the residual positive reactance shows that the input is not exactly purely resistive at that frequency.
+An S11 threshold of −10 dB means \(|\Gamma| \approx 0.316\), \(\mathrm{RL}=10\ \text{dB}\), and \(\mathrm{VSWR} \approx 1.92\). At 900 MHz, the simulated input impedance is \(48.63+j18.39\ \Omega\); the positive imaginary part is inductive reactance, so the input is not purely resistive at that frequency.
 
-A first-order tuning relationship is
+As a small-change trend, resonant frequency varies approximately inversely with effective electrical length:
 
-$$
-f_r \propto \frac{1}{L_{\mathrm{eff}}},
-\qquad
-\frac{\Delta f_r}{f_r}
-\approx
--\frac{\Delta L_{\mathrm{eff}}}{L_{\mathrm{eff}}}.
-$$
+```math
+\frac{\Delta f_r}{f_r} \approx -\frac{\Delta L_{\mathrm{eff}}}{L_{\mathrm{eff}}}
+```
 
-This indicates the direction of a small length correction: shortening the arms generally raises resonance; lengthening them generally lowers it. It is only an approximation. Make any physical trimming equal on both arms, in small increments, and remeasure after each change.
+Shortening both arms equally generally raises resonance; lengthening them equally generally lowers it. This relation is only a tuning guide for small changes, not a prediction formula for this thick, fed structure. Adjust symmetrically in small increments and remeasure.
 
 ## Materials and geometry
 
